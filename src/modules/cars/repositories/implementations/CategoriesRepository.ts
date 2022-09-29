@@ -3,26 +3,16 @@ import { Repository } from "typeorm";
 import { MyDataSource } from "../../../../database";
 import { Category } from "../../entities/Category";
 import {
-  ICategoryRepository,
+  ICategoriesRepository,
   ICreateCategoryDTO,
 } from "../ICategoriesRepository";
 
-class CategoriesRepository implements ICategoryRepository {
+class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
-
-  // eslint-disable-next-line no-use-before-define
-  // private static INSTANCE: CategoriesRepository;
 
   constructor() {
     this.repository = MyDataSource.getRepository(Category);
   }
-
-  // public static getInstance(): CategoriesRepository {
-  //   if (!CategoriesRepository.INSTANCE) {
-  //     CategoriesRepository.INSTANCE = new CategoriesRepository();
-  //   }
-  //   return CategoriesRepository.INSTANCE;
-  // }
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
     const category = this.repository.create({
